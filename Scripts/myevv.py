@@ -1,21 +1,25 @@
 from openpyxl import load_workbook
 
-archivo_excel = "../Include/asistencia.xlsx"  # Cargar el archivo de Excel
+archivo_excel = "../Include/asistencia.xlsx"  # Ruta del archivo de Excel
 libro = load_workbook(archivo_excel)
-hoja = libro["Asistencia"]        # Obtener la hoja "Asistencia"
+hoja = libro["Asistencia"]  # Obtener la hoja "Asistencia"
 
-ultima_fila = hoja.max_row  # Obtener la última fila con datos
+# Comenzar en la fila 2, suponiendo que la fila 1 contiene encabezados
+nueva_fila = 2
+while hoja.cell(row=nueva_fila, column=1).value is not None:
+    nueva_fila += 1  # Buscar la primera fila vacía después de los encabezados
 
-nombre = input("Ingresa tu nombre: ")  # Solicitar datos al usuario
+# Solicitar datos al usuario
+nombre = input("Ingresa tu nombre: ")
 fecha = input("Ingresa la fecha (yyyy-mm-dd): ")
 hora = input("Ingresa la hora de entrada (hh:mm): ")
 
-nueva_fila = ultima_fila + 1  # Agregar una nueva fila después de la última fila con datos
-
-hoja.cell(row=nueva_fila, column=1).value = nombre   # Escribir los datos en la nueva fila
+# Escribir los datos en la primera fila vacía después de los encabezados
+hoja.cell(row=nueva_fila, column=1).value = nombre
 hoja.cell(row=nueva_fila, column=2).value = fecha
 hoja.cell(row=nueva_fila, column=3).value = hora
 
-libro.save(archivo_excel)    # Guardar los cambios en el archivo
+# Guardar los cambios en el archivo Excel
+libro.save(archivo_excel)
 
 print(f"Datos guardados exitosamente en la fila {nueva_fila}.")
