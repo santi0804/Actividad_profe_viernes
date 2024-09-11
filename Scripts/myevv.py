@@ -1,6 +1,6 @@
 from openpyxl import load_workbook
 
-archivo_excel = "asistencia.xlsx"  # Cargar el archivo de Excel
+archivo_excel = "../Include/asistencia.xlsx"  # Cargar el archivo de Excel
 libro = load_workbook(archivo_excel)
 hoja = libro["Asistencia"]        # Obtener la hoja "Asistencia"
 
